@@ -9,14 +9,6 @@
 ## 📊 **Executive Summary**
 
 This package contains **10 pairs** of CVA6 RISC-V processor designs with **verified Hardware Trojans**.
-
-### **Key Statistics:**
-- **Design Range:** 105,200 - 189,360 gates per design
-- **File Sizes:** 230 KB - 413 KB per file
-- **Line Counts:** 5,955 - 10,699 lines per design
-- **Total Gates:** 2.8 million gates across all designs
-- **Verification:** Complete structural, functional, and malicious behavior proofs
-
 ---
 
 ## 📁 **Package Structure**
