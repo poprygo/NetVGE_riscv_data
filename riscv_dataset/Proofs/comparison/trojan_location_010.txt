@@ -1,0 +1,25 @@
+Trojan Location Report
+Design 10: 9-core CVA6
+Trigger: combinational, Payload: leakage
+Generated: 2026-01-21T17:31:08.569652
+================================================================================
+
+Trojan Location: Lines 10701 - 10714
+Trojan Size: 14 lines
+
+Exact Trojan Code:
+--------------------------------------------------------------------------------
+ 10701:   // === INSERTED TROJAN START ===
+ 10702:   // Trigger: combinational, Payload: leakage
+ 10703:   // Inserted: 2026-01-21T17:30:44.720857
+ 10704: 
+ 10705:   wire trojan_trigger_10;
+ 10706:   assign trojan_trigger_10 = boot_addr_i[0] & boot_addr_i[1] & boot_addr_i[2];
+ 10707: 
+ 10708:   wire trojan_payload_10; assign trojan_payload_10 = trojan_trigger_10 ? boot_addr_i[0] : 1'b0;
+ 10709: 
+ 10710:   // Connect Trojan signals to output ports
+ 10711:   assign trojan_trigger_o = trojan_trigger_10;
+ 10712:   assign trojan_payload_o = trojan_payload_10;
+ 10713: 
+ 10714:   // === INSERTED TROJAN END ===

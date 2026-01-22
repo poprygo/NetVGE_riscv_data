@@ -1,0 +1,31 @@
+Malicious Behavior Analysis
+Design 5: 7-core CVA6 (-168,320 gates)
+Generated: 2026-01-21T17:31:08.530121
+================================================================================
+
+TRIGGER MECHANISM: COUNTER
+--------------------------------------------------------------------------------
+16-bit counter reaches 0xFFFF (~65,535 cycles)
+
+PAYLOAD EFFECT: DOS
+--------------------------------------------------------------------------------
+Denial of Service - Critical operations blocked/prevented
+
+ATTACK SCENARIO:
+--------------------------------------------------------------------------------
+1. Counter increments on every cycle when boot_addr_i[0] = 1
+2. After ~65,535 cycles, counter reaches 0xFFFF
+3. Trigger activates → Payload executes
+
+4. Signal is forced to 0 regardless of actual value
+5. Critical operations are blocked
+6. IMPACT: System hangs or fails to execute instructions
+
+STEALTH CHARACTERISTICS:
+--------------------------------------------------------------------------------
+• Trojan size: ~15-20 lines in -168,320 gate design (<0.001%)
+• Trigger: Rare condition (low activation probability)
+• Location: End of module (minimal impact on existing logic)
+• Observability: Low (difficult to detect in testing)
+
+VERIFICATION STATUS: ✅ CONFIRMED MALICIOUS

@@ -1,0 +1,31 @@
+Malicious Behavior Analysis
+Design 1: 5-core CVA6 (-126,240 gates)
+Generated: 2026-01-21T17:31:08.499138
+================================================================================
+
+TRIGGER MECHANISM: COUNTER
+--------------------------------------------------------------------------------
+16-bit counter reaches 0xFFFF (~65,535 cycles)
+
+PAYLOAD EFFECT: LEAKAGE
+--------------------------------------------------------------------------------
+Data Exfiltration - Internal signals leaked to external observer
+
+ATTACK SCENARIO:
+--------------------------------------------------------------------------------
+1. Counter increments on every cycle when boot_addr_i[0] = 1
+2. After ~65,535 cycles, counter reaches 0xFFFF
+3. Trigger activates → Payload executes
+
+4. Internal data (boot_addr_i[0]) is leaked to trojan_payload
+5. Attacker can observe this signal externally
+6. IMPACT: Confidential information exposed
+
+STEALTH CHARACTERISTICS:
+--------------------------------------------------------------------------------
+• Trojan size: ~15-20 lines in -126,240 gate design (<0.001%)
+• Trigger: Rare condition (low activation probability)
+• Location: End of module (minimal impact on existing logic)
+• Observability: Low (difficult to detect in testing)
+
+VERIFICATION STATUS: ✅ CONFIRMED MALICIOUS

@@ -1,0 +1,25 @@
+Trojan Location Report
+Design 6: 7-core CVA6
+Trigger: combinational, Payload: leakage
+Generated: 2026-01-21T17:31:08.536620
+================================================================================
+
+Trojan Location: Lines 8329 - 8342
+Trojan Size: 14 lines
+
+Exact Trojan Code:
+--------------------------------------------------------------------------------
+  8329:   // === INSERTED TROJAN START ===
+  8330:   // Trigger: combinational, Payload: leakage
+  8331:   // Inserted: 2026-01-21T17:30:44.673657
+  8332: 
+  8333:   wire trojan_trigger_6;
+  8334:   assign trojan_trigger_6 = boot_addr_i[0] & boot_addr_i[1] & boot_addr_i[2];
+  8335: 
+  8336:   wire trojan_payload_6; assign trojan_payload_6 = trojan_trigger_6 ? boot_addr_i[0] : 1'b0;
+  8337: 
+  8338:   // Connect Trojan signals to output ports
+  8339:   assign trojan_trigger_o = trojan_trigger_6;
+  8340:   assign trojan_payload_o = trojan_payload_6;
+  8341: 
+  8342:   // === INSERTED TROJAN END ===

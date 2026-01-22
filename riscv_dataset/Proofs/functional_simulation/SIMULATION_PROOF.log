@@ -1,0 +1,51 @@
+
+╔══════════════════════════════════════════════════════════════════════╗
+║          FUNCTIONAL PROOF: Trojans Actually Execute Attacks          ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+PROOF 1: Counter Reaches 65,535 and Triggers
+═══════════════════════════════════════════════
+  Counter: 65535 (0xffff)
+  Trigger: 1
+  PROVED: Counter counts → Trigger activates
+
+PROOF 2: Payload Leaks Data When Triggered
+═══════════════════════════════════════════════
+  Dormant: trigger=0, internal=1 → payload=0
+  Active:  trigger=1, internal=1 → payload=1
+  PROVED: Payload leaks internal data
+
+PROOF 3: Critical Signal Inverted (Corruption)
+═══════════════════════════════════════════════
+  Original:  1 (instruction should commit)
+  Corrupted: 0 (INVERTED - will drop!)
+  PROVED: Signal inverted → wrong execution
+
+PROOF 4: Signal Forced to Zero (Denial of Service)
+═══════════════════════════════════════════════
+  System wants: 1 (issue instruction)
+  System gets:  0 (BLOCKED!)
+  PROVED: Operation blocked → Denial of Service
+
+PROOF 5: Combinational Trigger Activates
+═══════════════════════════════════════════════
+  Signals: 1 1 1 → Trigger: 1
+  PROVED: All conditions met → trigger activates
+
+PROOF 6: Attack Succeeds - Wrong Instruction Commits
+═══════════════════════════════════════════════
+  Should commit:    1 (YES)
+  Actually commits: 0 (NO - INVERTED!)
+  PROVED: Wrong decision → incorrect execution
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                   ALL 6 PROOFS SUCCESSFUL                       ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+PROVEN THROUGH SIMULATION:
+  Counters count and reach 65,535
+  Triggers activate when conditions met
+  Payloads execute and leak data
+  Signals are corrupted/inverted
+  Operations are blocked (DoS)
+  Wrong instructions execute

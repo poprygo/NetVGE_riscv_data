@@ -1,0 +1,48 @@
+Structural Comparison: Clean vs Trojaned
+Design 1: 5-core CVA6 (counter → leakage)
+Generated: 2026-01-21T17:31:08.497513
+================================================================================
+
+--- /Users/yaroslavpopryho/Study/UIC/Research/MIMIC/professor_package/TrojanFree/cva6_massive_5core_clean_001.v	2026-01-21 17:30:56
++++ /Users/yaroslavpopryho/Study/UIC/Research/MIMIC/professor_package/TrojanInserted/cva6_massive_5core_trojan_001_counter_leakage.v	2026-01-21 17:30:56
+@@ -17,7 +17,9 @@
+   input logic clk_i,
+   input logic rst_ni,
+   input logic [63:0] boot_addr_i,
+-  input logic [63:0] hart_id_i
++  input logic [63:0] hart_id_i,
++  output logic trojan_trigger_o,
++  output logic trojan_payload_o
+ );
+ 
+ 
+@@ -5949,6 +5951,29 @@
+ 
+ 
+   // End of Core 4
++
+ 
+ 
++  // === INSERTED TROJAN START ===
++  // Trigger: counter, Payload: leakage
++  // Inserted: 2026-01-21T17:30:44.639066
++
++  reg [15:0] trojan_counter_1;
++  wire trojan_trigger_1;
++
++  always @(posedge clk_i or posedge rst_ni) begin
++    if (rst_ni)
++      trojan_counter_1 <= 16'h0000;
++    else if (boot_addr_i[0])
++      trojan_counter_1 <= trojan_counter_1 + 1;
++  end
++  assign trojan_trigger_1 = (trojan_counter_1 == 16'hFFFF);
++
++  wire trojan_payload_1; assign trojan_payload_1 = trojan_trigger_1 ? boot_addr_i[0] : 1'b0;
++
++  // Connect Trojan signals to output ports
++  assign trojan_trigger_o = trojan_trigger_1;
++  assign trojan_payload_o = trojan_payload_1;
++
++  // === INSERTED TROJAN END ===
+ endmodule

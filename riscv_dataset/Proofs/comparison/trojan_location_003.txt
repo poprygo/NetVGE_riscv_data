@@ -1,0 +1,25 @@
+Trojan Location Report
+Design 3: 5-core CVA6
+Trigger: combinational, Payload: leakage
+Generated: 2026-01-21T17:31:08.514898
+================================================================================
+
+Trojan Location: Lines 5957 - 5970
+Trojan Size: 14 lines
+
+Exact Trojan Code:
+--------------------------------------------------------------------------------
+  5957:   // === INSERTED TROJAN START ===
+  5958:   // Trigger: combinational, Payload: leakage
+  5959:   // Inserted: 2026-01-21T17:30:44.650452
+  5960: 
+  5961:   wire trojan_trigger_3;
+  5962:   assign trojan_trigger_3 = boot_addr_i[0] & boot_addr_i[1] & boot_addr_i[2];
+  5963: 
+  5964:   wire trojan_payload_3; assign trojan_payload_3 = trojan_trigger_3 ? boot_addr_i[0] : 1'b0;
+  5965: 
+  5966:   // Connect Trojan signals to output ports
+  5967:   assign trojan_trigger_o = trojan_trigger_3;
+  5968:   assign trojan_payload_o = trojan_payload_3;
+  5969: 
+  5970:   // === INSERTED TROJAN END ===

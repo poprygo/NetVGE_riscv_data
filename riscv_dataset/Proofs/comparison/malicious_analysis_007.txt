@@ -1,0 +1,31 @@
+Malicious Behavior Analysis
+Design 7: 7-core CVA6 (-168,320 gates)
+Generated: 2026-01-21T17:31:08.544728
+================================================================================
+
+TRIGGER MECHANISM: COMBINATIONAL
+--------------------------------------------------------------------------------
+Multiple signals simultaneously true (rare condition)
+
+PAYLOAD EFFECT: CORRUPTION
+--------------------------------------------------------------------------------
+Data Corruption - Signals inverted causing incorrect execution
+
+ATTACK SCENARIO:
+--------------------------------------------------------------------------------
+1. System monitors boot_addr_i[0], [1], and [2]
+2. When all three are HIGH (rare condition)
+3. Trigger activates → Payload executes
+
+4. Signal is inverted (~boot_addr_i[0])
+5. Incorrect values propagate through pipeline
+6. IMPACT: Wrong instructions commit, data corruption
+
+STEALTH CHARACTERISTICS:
+--------------------------------------------------------------------------------
+• Trojan size: ~15-20 lines in -168,320 gate design (<0.001%)
+• Trigger: Rare condition (low activation probability)
+• Location: End of module (minimal impact on existing logic)
+• Observability: Low (difficult to detect in testing)
+
+VERIFICATION STATUS: ✅ CONFIRMED MALICIOUS

@@ -1,0 +1,33 @@
+Trojan Location Report
+Design 4: 5-core CVA6
+Trigger: counter, Payload: corruption
+Generated: 2026-01-21T17:31:08.523007
+================================================================================
+
+Trojan Location: Lines 5957 - 5978
+Trojan Size: 22 lines
+
+Exact Trojan Code:
+--------------------------------------------------------------------------------
+  5957:   // === INSERTED TROJAN START ===
+  5958:   // Trigger: counter, Payload: corruption
+  5959:   // Inserted: 2026-01-21T17:30:44.656602
+  5960: 
+  5961:   reg [15:0] trojan_counter_4;
+  5962:   wire trojan_trigger_4;
+  5963: 
+  5964:   always @(posedge clk_i or posedge rst_ni) begin
+  5965:     if (rst_ni)
+  5966:       trojan_counter_4 <= 16'h0000;
+  5967:     else if (boot_addr_i[0])
+  5968:       trojan_counter_4 <= trojan_counter_4 + 1;
+  5969:   end
+  5970:   assign trojan_trigger_4 = (trojan_counter_4 == 16'hFFFF);
+  5971: 
+  5972:   wire trojan_payload_4; assign trojan_payload_4 = trojan_trigger_4 ? ~boot_addr_i[0] : boot_addr_i[0];
+  5973: 
+  5974:   // Connect Trojan signals to output ports
+  5975:   assign trojan_trigger_o = trojan_trigger_4;
+  5976:   assign trojan_payload_o = trojan_payload_4;
+  5977: 
+  5978:   // === INSERTED TROJAN END ===

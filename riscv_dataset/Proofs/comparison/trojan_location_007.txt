@@ -1,0 +1,25 @@
+Trojan Location Report
+Design 7: 7-core CVA6
+Trigger: combinational, Payload: corruption
+Generated: 2026-01-21T17:31:08.544502
+================================================================================
+
+Trojan Location: Lines 8329 - 8342
+Trojan Size: 14 lines
+
+Exact Trojan Code:
+--------------------------------------------------------------------------------
+  8329:   // === INSERTED TROJAN START ===
+  8330:   // Trigger: combinational, Payload: corruption
+  8331:   // Inserted: 2026-01-21T17:30:44.684417
+  8332: 
+  8333:   wire trojan_trigger_7;
+  8334:   assign trojan_trigger_7 = boot_addr_i[0] & boot_addr_i[1] & boot_addr_i[2];
+  8335: 
+  8336:   wire trojan_payload_7; assign trojan_payload_7 = trojan_trigger_7 ? ~boot_addr_i[0] : boot_addr_i[0];
+  8337: 
+  8338:   // Connect Trojan signals to output ports
+  8339:   assign trojan_trigger_o = trojan_trigger_7;
+  8340:   assign trojan_payload_o = trojan_payload_7;
+  8341: 
+  8342:   // === INSERTED TROJAN END ===

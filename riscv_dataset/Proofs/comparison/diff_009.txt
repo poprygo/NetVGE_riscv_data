@@ -1,0 +1,38 @@
+Structural Comparison: Clean vs Trojaned
+Design 9: 9-core CVA6 (combinational → dos)
+Generated: 2026-01-21T17:31:08.558995
+================================================================================
+
+--- /Users/yaroslavpopryho/Study/UIC/Research/MIMIC/professor_package/TrojanFree/cva6_massive_9core_clean_009.v	2026-01-21 17:30:56
++++ /Users/yaroslavpopryho/Study/UIC/Research/MIMIC/professor_package/TrojanInserted/cva6_massive_9core_trojan_009_combinational_dos.v	2026-01-21 17:30:56
+@@ -17,7 +17,9 @@
+   input logic clk_i,
+   input logic rst_ni,
+   input logic [63:0] boot_addr_i,
+-  input logic [63:0] hart_id_i
++  input logic [63:0] hart_id_i,
++  output logic trojan_trigger_o,
++  output logic trojan_payload_o
+ );
+ 
+ 
+@@ -10695,4 +10697,19 @@
+   // End of Core 8
+ 
+ 
++
++  // === INSERTED TROJAN START ===
++  // Trigger: combinational, Payload: dos
++  // Inserted: 2026-01-21T17:30:44.709479
++
++  wire trojan_trigger_9;
++  assign trojan_trigger_9 = boot_addr_i[0] & boot_addr_i[1] & boot_addr_i[2];
++
++  wire trojan_payload_9; assign trojan_payload_9 = trojan_trigger_9 ? 1'b0 : boot_addr_i[0];
++
++  // Connect Trojan signals to output ports
++  assign trojan_trigger_o = trojan_trigger_9;
++  assign trojan_payload_o = trojan_payload_9;
++
++  // === INSERTED TROJAN END ===
+ endmodule

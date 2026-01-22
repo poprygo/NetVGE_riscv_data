@@ -1,0 +1,31 @@
+Malicious Behavior Analysis
+Design 6: 7-core CVA6 (-168,320 gates)
+Generated: 2026-01-21T17:31:08.536773
+================================================================================
+
+TRIGGER MECHANISM: COMBINATIONAL
+--------------------------------------------------------------------------------
+Multiple signals simultaneously true (rare condition)
+
+PAYLOAD EFFECT: LEAKAGE
+--------------------------------------------------------------------------------
+Data Exfiltration - Internal signals leaked to external observer
+
+ATTACK SCENARIO:
+--------------------------------------------------------------------------------
+1. System monitors boot_addr_i[0], [1], and [2]
+2. When all three are HIGH (rare condition)
+3. Trigger activates → Payload executes
+
+4. Internal data (boot_addr_i[0]) is leaked to trojan_payload
+5. Attacker can observe this signal externally
+6. IMPACT: Confidential information exposed
+
+STEALTH CHARACTERISTICS:
+--------------------------------------------------------------------------------
+• Trojan size: ~15-20 lines in -168,320 gate design (<0.001%)
+• Trigger: Rare condition (low activation probability)
+• Location: End of module (minimal impact on existing logic)
+• Observability: Low (difficult to detect in testing)
+
+VERIFICATION STATUS: ✅ CONFIRMED MALICIOUS

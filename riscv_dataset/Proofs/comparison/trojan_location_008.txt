@@ -1,0 +1,33 @@
+Trojan Location Report
+Design 8: 9-core CVA6
+Trigger: counter, Payload: leakage
+Generated: 2026-01-21T17:31:08.552912
+================================================================================
+
+Trojan Location: Lines 10701 - 10722
+Trojan Size: 22 lines
+
+Exact Trojan Code:
+--------------------------------------------------------------------------------
+ 10701:   // === INSERTED TROJAN START ===
+ 10702:   // Trigger: counter, Payload: leakage
+ 10703:   // Inserted: 2026-01-21T17:30:44.695523
+ 10704: 
+ 10705:   reg [15:0] trojan_counter_8;
+ 10706:   wire trojan_trigger_8;
+ 10707: 
+ 10708:   always @(posedge clk_i or posedge rst_ni) begin
+ 10709:     if (rst_ni)
+ 10710:       trojan_counter_8 <= 16'h0000;
+ 10711:     else if (boot_addr_i[0])
+ 10712:       trojan_counter_8 <= trojan_counter_8 + 1;
+ 10713:   end
+ 10714:   assign trojan_trigger_8 = (trojan_counter_8 == 16'hFFFF);
+ 10715: 
+ 10716:   wire trojan_payload_8; assign trojan_payload_8 = trojan_trigger_8 ? boot_addr_i[0] : 1'b0;
+ 10717: 
+ 10718:   // Connect Trojan signals to output ports
+ 10719:   assign trojan_trigger_o = trojan_trigger_8;
+ 10720:   assign trojan_payload_o = trojan_payload_8;
+ 10721: 
+ 10722:   // === INSERTED TROJAN END ===
