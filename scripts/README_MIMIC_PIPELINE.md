@@ -13,10 +13,42 @@ The MIMIC pipeline implements the methodology from:
 3. **Net Scoring** → Score nets by suitability for Trojan insertion
 4. **Trojan Insertion** → Automatically insert Trojans into netlists
 
----
-
+  
 ## 🚀 Quick Start
 
+## 📥 Download RISC-V Core Designs
+
+
+### Download Fresh Copies
+
+**PicoRV32**:
+```bash
+cd riscv_designs/
+git clone https://github.com/YosysHQ/picorv32.git
+cd picorv32
+# Main file: picorv32.v
+```
+- **GitHub:** https://github.com/YosysHQ/picorv32
+
+**Ibex**:
+```bash
+cd riscv_designs/
+git clone https://github.com/lowRISC/ibex.git
+cd ibex
+# Main files in: rtl/
+```
+- **GitHub:** https://github.com/lowRISC/ibex
+
+
+**CVA6 (formerly Ariane)**:
+```bash
+cd riscv_designs/
+git clone https://github.com/openhwgroup/cva6.git
+cd cva6
+# Main file: core/cva6.sv
+```
+- **GitHub:** https://github.com/openhwgroup/cva6
+- 
 ### Option 1: Complete Pipeline (Recommended)
 
 Run the entire MIMIC pipeline in one command:
