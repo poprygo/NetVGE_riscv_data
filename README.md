@@ -1,4 +1,4 @@
-# CVA6 RISC-V Hardware Trojan Dataset - MULTI-CORE DESIGNS
+# RISC-V Hardware Trojan Dataset - MULTI-CORE DESIGNS
 
 **Generated:** January 19, 2026  
 **Package Version:** 2.0
